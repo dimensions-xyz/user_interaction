@@ -1,11 +1,14 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react'
+import { View, Text } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { LoginScreen } from '../screens'
-import { PostScreen, SearchScreen, TodosScreen, ProfileScreen, } from '../screens/tabs'
-import { COLORS } from '../../constants/theme';
+import { PostScreen, AlbumsScreen, TodosScreen, ProfileScreen, } from '../screens/tabs'
+import { COLORS } from '../../constants/theme'
+import { getUser } from '../utils/requests/GetDataUtils'
+import Icon from 'react-native-ionicons'
+import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,27 +49,63 @@ const Router = () => {
 
 const HomeScreen = () => {
 
+    const state = useSelector((state) => state);
+
+    getUser(state.data[state.data.length - 1].userid).then(result => {
+
+        console.log(result.user);
+
+    });
+
     return (
         <Tab.Navigator screenOptions={options.tabBarStyle}>
 
             <Tab.Screen
-                name="Gönderiler"
+                name="PostScreen"
                 component={PostScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Icon name="home" focused={focused} color={focused ? COLORS.purple : COLORS.gray} />
+                        );
+                    }
+                }}
             />
 
             <Tab.Screen
-                name="Ara"
-                component={SearchScreen}
+                name="AlbumsScreen"
+                component={AlbumsScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Icon name="images" focused={focused} color={focused ? COLORS.purple : COLORS.gray} />
+                        );
+                    }
+                }}
             />
 
             <Tab.Screen
-                name="Yapılacaklar"
+                name="TodosScreen"
                 component={TodosScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Icon name="book" focused={focused} color={focused ? COLORS.purple : COLORS.gray} />
+                        );
+                    }
+                }}
             />
 
             <Tab.Screen
-                name="Profil"
+                name="ProfileScreen"
                 component={ProfileScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <Icon name="person" focused={focused} color={focused ? COLORS.purple : COLORS.gray} />
+                        );
+                    }
+                }}
             />
 
         </Tab.Navigator>

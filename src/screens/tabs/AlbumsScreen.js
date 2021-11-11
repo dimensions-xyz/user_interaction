@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, SafeAreaView, StatusBar } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
-import { COLORS } from '../../../constants/theme'
+import { COLORS } from '../../../constants/theme';
 
-const SearchScreen = ({ navigation }) => {
+const AlbumsScreen = ({ navigation }) => {
 
     const logOut = () => {
         navigation.navigate("LoginScreen")
@@ -22,7 +22,7 @@ const SearchScreen = ({ navigation }) => {
             />
 
             <Header
-                title="Ara"
+                title="Albümler"
                 rightIcon={(<IconLogOut color={COLORS.purple} />)}
                 onPressRightIcon={() => logOut()}
             />
@@ -32,4 +32,4 @@ const SearchScreen = ({ navigation }) => {
 
 }
 
-export default SearchScreen;
+export default AlbumsScreen;

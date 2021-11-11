@@ -3,13 +3,16 @@ import { View, Text, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 import { Header, CustomTextInput, CustomButton } from '../components';
 import { IconPerson } from '../assets/svg';
 import { COLORS, SIZES } from '../../constants/theme';
-import NetworkUtils from '../utils/NetworkUtils';
-import { LoginRequest } from '../utils/GETutils';
+import { LoginRequest } from '../utils/requests/LoginUtils';
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/actions/UserActions"
 
 const LoginScreen = ({ navigation }) => {
 
     const [username, setUsername] = useState('');
     const [status, setStatus] = useState('');
+
+    const dispatch = useDispatch();
 
     const signIn = async () => {
 
@@ -18,9 +21,9 @@ const LoginScreen = ({ navigation }) => {
 
                 if (result.isConnected) {
                     if (result.status.length < 1) {
-                        setStatus('Geçerli bir kullanıcı adı giriniz.')
-                    }
-                    else {
+                        setStatus('Lütfen geçerli bir kullanıcı adı giriniz.')
+                    } else {
+                        dispatch(addUser({userid: result.status[0].id}))
                         navigation.navigate('HomeScreen')
                     }
                 }
