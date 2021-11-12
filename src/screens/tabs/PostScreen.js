@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, StatusBar, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, SafeAreaView, StatusBar, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS, SIZES } from '../../../constants/theme';
 import { getPosts } from '../../utils/requests/GetDataUtils';
+import { wait } from '../../utils/PromiseUtils';
 
 const PostScreen = ({ navigation }) => {
 
-    const logOut = () => {
-        navigation.navigate("LoginScreen")
-    }
-
     const [data, setData] = useState([]);
     const [isLoading, setisLoading] = useState(false);
+    const [refreshing, setRefreshing] = useState(false)
     const [pageCurrent, setpageCurrent] = useState(1)
 
     useEffect(() => {
@@ -22,16 +20,33 @@ const PostScreen = ({ navigation }) => {
 
     }, [pageCurrent])
 
+    const logOut = () => {
+        navigation.navigate("LoginScreen")
+    }
+
+    const onRefresh = useCallback(() => {
+
+        setRefreshing(true)
+
+        wait(2000).then(() => {
+            setRefreshing(false)
+            getData()
+        }, [refreshing]);
+
+    })
+
     const getData = async () => {
+
         getPosts(pageCurrent).then(result => {
             if (result.isConnected) {
                 setData(data.concat(result.post))
                 setisLoading(false)
             }
-            else{
+            else {
                 alert("İnternet Bağlantınızı Kontrol ediniz!")
             }
         });
+
     }
 
     const renderItem = ({ item }) => {
@@ -56,7 +71,7 @@ const PostScreen = ({ navigation }) => {
                 }}>
 
                     <View style={{
-                        padding: 8
+                        padding: 10
                     }}>
 
                         <Text style={{
@@ -120,6 +135,12 @@ const PostScreen = ({ navigation }) => {
             <FlatList style={{
                 flex: 1,
             }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index}

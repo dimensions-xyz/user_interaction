@@ -55,7 +55,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         AsyncStorage.getItem("userid").then(value => {
-            if(value == null){
+            if (value == null) {
                 AsyncStorage.setItem("userid", state.data[state.data.length - 1].userid.toString())
             }
         })

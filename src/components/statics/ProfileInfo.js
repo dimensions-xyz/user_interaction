@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, StatusBar } from 'react-native';
 import { COLORS, FONTS } from '../../../constants/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUser } from '../../utils/requests/GetDataUtils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileInfo = () => {
 
     // verilerdeki adres ve şirketin ayrı payloadları olduğu için aynı datasette iken hata veriyor
-    // geçici olacağı için database yerine hook kullandım
+    // büyük bir proje olmadığı için database yerine hook kullandım. Umarım iyi yapmışımdır :)
     const [data, setData] = useState([]);
     const [address, setAddress] = useState([]);
     const [company, setCompany] = useState([]);
@@ -16,6 +16,7 @@ const ProfileInfo = () => {
 
         getData()
 
+        // Bellek kullanımının azalması için burda verileri geri sildim eğer sizde veriler gelmezse burdaki set metodlarını kaldırabilirsiniz.
         setData({})
         setAddress({})
         setCompany({})
@@ -24,24 +25,33 @@ const ProfileInfo = () => {
 
     const getData = async () => {
         AsyncStorage.getItem("userid").then(value => {
+
             getUser(value).then((result) => {
-                setData(result.user[0])
-                setAddress(result.user[0].address)
-                setCompany(result.user[0].company)
-            })
+                if (result.isConnected) {
+                    setData(result.user[0])
+                    setAddress(result.user[0].address)
+                    setCompany(result.user[0].company)
+                } else {
+                    alert("İnternet Bağlantınızı Kontrol ediniz!")
+                }
+            });
+
         });
     }
 
-
     return (
-        <View style={{ height: '90%', justifyContent: 'space-between' }}>
+        <View style={{
+            height: '90%',
+            justifyContent: 'space-between',
+        }}>
 
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Name:
                 </Text>
                 <Text style={{
-                    ...FONTS.desc
+                    color: COLORS.gray,
+                    ...FONTS.desc,
                 }}>{data.name}</Text>
             </View>
 
@@ -50,6 +60,7 @@ const ProfileInfo = () => {
                     E-mail:
                 </Text>
                 <Text style={{
+                    color: COLORS.gray,
                     ...FONTS.desc
                 }}>{data.email}</Text>
             </View>
@@ -59,6 +70,7 @@ const ProfileInfo = () => {
                     Address:
                 </Text>
                 <Text style={{
+                    color: COLORS.gray,
                     ...FONTS.desc
                 }}>{address.street + "\n" +
                     address.suite + "\n" +
@@ -72,6 +84,7 @@ const ProfileInfo = () => {
                     Phone:
                 </Text>
                 <Text style={{
+                    color: COLORS.gray,
                     ...FONTS.desc
                 }}>{data.phone}</Text>
             </View>
@@ -81,6 +94,7 @@ const ProfileInfo = () => {
                     Website:
                 </Text>
                 <Text style={{
+                    color: COLORS.gray,
                     ...FONTS.desc
                 }}>{data.website}</Text>
             </View>
@@ -90,6 +104,7 @@ const ProfileInfo = () => {
                     Company:
                 </Text>
                 <Text style={{
+                    color: COLORS.gray,
                     ...FONTS.desc
                 }}>{company.name + "\n" +
                     company.catchPhrase + "\n" +

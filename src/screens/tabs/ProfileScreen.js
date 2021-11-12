@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS } from '../../../constants/theme';
