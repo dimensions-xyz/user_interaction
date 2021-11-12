@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import NetworkUtils from '../NetworkUtils'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetworkUtils from '../NetworkUtils';
 
 export async function getPosts(pageCurrent) {
 
@@ -38,6 +38,7 @@ export async function getPosts(pageCurrent) {
             .then((result) => {
                 post = JSON.parse(result)
 
+                //Postların userIdlerini indexleme
                 for (let i = 0; i < post.length; i++) {
                     for (let j = 0; j < users.length; j++) {
                         if (post[i].userId === users[j].id) {
@@ -82,6 +83,7 @@ export async function getTodos() {
 
     let userid = ""
     let todos = ""
+    let queue = 0
 
     await AsyncStorage.getItem("userid").then(value => {
         userid = value
@@ -100,16 +102,24 @@ export async function getTodos() {
         }).then((response) => response.text())
             .then((result) => {
                 todos = JSON.parse(result)
+
+                // Listeleri numaralama
+                for (let i = 0; i < todos.length; i++) {
+                    queue++
+                    todos[i].queue = queue
+                }
+
             });
     }
 
-    return { todos, isConnected }
+    return { todos, isConnected, queue }
 }
 
 export async function getAlbums() {
 
     let userid = ""
     let albums = ""
+    let queue = 0
 
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
@@ -128,6 +138,13 @@ export async function getAlbums() {
         }).then((response) => response.text())
             .then((result) => {
                 albums = JSON.parse(result)
+
+                // Listeleri numaralama
+                for (let i = 0; i < albums.length; i++) {
+                    queue++
+                    albums[i].queue = queue
+                }
+
             });
     }
 

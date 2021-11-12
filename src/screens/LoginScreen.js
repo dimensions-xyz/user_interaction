@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { View, Text, SafeAreaView, StatusBar, ScrollView } from 'react-native'
-import { Header, CustomTextInput, CustomButton } from '../components'
-import { IconPerson } from '../assets/svg'
-import { COLORS, SIZES } from '../../constants/theme'
-import { LoginRequest } from '../utils/requests/LoginUtils'
-import { useDispatch } from "react-redux"
-import { addUser } from "../redux/actions/UserActions"
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useState } from 'react';
+import { View, Text, SafeAreaView, StatusBar, ScrollView } from 'react-native';
+import { Header, CustomTextInput, CustomButton } from '../components';
+import { IconPerson } from '../assets/svg';
+import { COLORS, SIZES } from '../../constants/theme';
+import { LoginRequest } from '../utils/requests/LoginUtils';
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/actions/UserActions";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -26,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
                 // İnternet bağlantısı varsa
                 if (result.isConnected) {
 
-                    // Gelen json verisi boşsa
+                    // Gelen json verisi yoksa
                     if (result.status.length < 1) {
                         setStatus('Lütfen geçerli bir kullanıcı adı giriniz.')
                     } else {

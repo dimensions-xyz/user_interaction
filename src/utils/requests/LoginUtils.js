@@ -1,4 +1,4 @@
-import NetworkUtils from '../NetworkUtils'
+import NetworkUtils from '../NetworkUtils';
 
 export async function LoginRequest(username) {
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, SafeAreaView, StatusBar, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
-import { IconLogOut } from '../../assets/svg';
-import { Header } from '../../components';
-import { COLORS, FONTS, SIZES } from '../../../constants/theme'
-import { getTodos } from '../../utils/requests/GetDataUtils';
-import { wait } from '../../utils/PromiseUtils';
+import { IconLogOut } from '../../../assets/svg';
+import { Header } from '../../../components';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme'
+import { getTodos } from '../../../utils/requests/GetDataUtils';
+import { wait } from '../../../utils/PromiseUtils';
 import CheckBox from '@react-native-community/checkbox';
 
 const TodosScreen = ({ navigation }) => {
@@ -69,7 +69,7 @@ const TodosScreen = ({ navigation }) => {
                         padding: 15,
                         color: COLORS.bgColor,
                         ...FONTS.title
-                    }}>{item.id + " - " +
+                    }}>{item.queue + " - " +
                         item.title}</Text>
 
                     <CheckBox

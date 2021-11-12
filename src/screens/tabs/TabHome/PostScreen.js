@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, SafeAreaView, StatusBar, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
-import { IconLogOut } from '../../assets/svg';
-import { Header } from '../../components';
-import { COLORS, FONTS, SIZES } from '../../../constants/theme';
-import { getPosts } from '../../utils/requests/GetDataUtils';
-import { wait } from '../../utils/PromiseUtils';
+import { IconLogOut } from '../../../assets/svg';
+import { Header } from '../../../components';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
+import { getPosts } from '../../../utils/requests/GetDataUtils';
+import { wait } from '../../../utils/PromiseUtils';
 
 const PostScreen = ({ navigation }) => {
 
@@ -67,11 +67,15 @@ const PostScreen = ({ navigation }) => {
                     fontFamily: 'Roboto-Bold'
                 }}>{item.name}</Text>
 
-                <TouchableOpacity onPress={() => { navigation.navigate("asd") }} style={{
+                <TouchableOpacity style={{
                     borderRadius: 20,
                     borderWidth: 2,
                     borderColor: COLORS.purple
-                }}>
+                }}
+                    onPress={() => navigation.navigate("CommentScreen", {
+                        // Argüman
+                    })}
+                >
 
                     <View style={{
                         padding: 10

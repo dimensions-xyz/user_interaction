@@ -1,13 +1,14 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React from 'react'
-import { View, Text, StatusBar, Image } from 'react-native'
-import { COLORS, FONTS } from '../../constants/theme'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { View, Text, StatusBar, Image } from 'react-native';
+import { COLORS, FONTS } from '../../constants/theme';
 
 const SplashScreen = ({ navigation }) => {
 
     setTimeout(() => {
         AsyncStorage.getItem("userid").then(value => {
 
+            // Eğer daha önce giriş yapılmadıysa giriş ekranı gösterilecek
             if (value == null) {
                 navigation.reset({
                     index: 0,

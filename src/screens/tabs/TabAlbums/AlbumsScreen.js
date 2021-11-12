@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, SafeAreaView, StatusBar, FlatList, Image, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
-import { IconLogOut } from '../../assets/svg';
-import { Header } from '../../components';
-import { COLORS, FONTS } from '../../../constants/theme';
-import { getAlbums } from '../../utils/requests/GetDataUtils';
-import { wait } from '../../utils/PromiseUtils';
+import { IconLogOut } from '../../../assets/svg';
+import { Header } from '../../../components';
+import { COLORS, FONTS } from '../../../../constants/theme';
+import { getAlbums } from '../../../utils/requests/GetDataUtils';
+import { wait } from '../../../utils/PromiseUtils';
 
 const AlbumsScreen = ({ navigation }) => {
 
@@ -59,7 +59,11 @@ const AlbumsScreen = ({ navigation }) => {
                 borderWidth: 2,
                 borderRadius: 25,
                 borderColor: COLORS.purple,
-            }}>
+            }}
+                onPress={() => navigation.navigate("PhotosScreen", {
+                    // Argüman
+                })}
+            >
 
                 <View style={{
                     padding: 30,
@@ -70,7 +74,7 @@ const AlbumsScreen = ({ navigation }) => {
                     <Text style={{
                         ...FONTS.title,
                         color: COLORS.purple
-                    }}>{item.id + ". albüm"}</Text>
+                    }}>{item.queue + ". albüm"}</Text>
 
                     <Text style={{
                         ...FONTS.desc,

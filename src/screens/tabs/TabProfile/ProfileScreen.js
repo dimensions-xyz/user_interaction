@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
-import { IconLogOut } from '../../assets/svg';
-import { Header } from '../../components';
-import { COLORS, FONTS } from '../../../constants/theme';
-import { ProfileInfo } from '../../components/statics';
+import { IconLogOut } from '../../../assets/svg';
+import { Header } from '../../../components';
+import { COLORS, FONTS } from '../../../../constants/theme';
+import { ProfileInfo } from '../../../components/statics';
 import { useSelector } from "react-redux";
-import { removeUser } from "../../redux/actions/UserActions"
 
 const ProfileScreen = ({ navigation }) => {
 
