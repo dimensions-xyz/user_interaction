@@ -15,13 +15,16 @@ const PostScreen = ({ navigation }) => {
 
     useEffect(() => {
 
-        setisLoading(true);
+        setisLoading(true)
         getData()
 
     }, [pageCurrent])
 
     const logOut = () => {
-        navigation.navigate("LoginScreen")
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+        });
     }
 
     const onRefresh = useCallback(() => {
@@ -64,7 +67,7 @@ const PostScreen = ({ navigation }) => {
                     fontFamily: 'Roboto-Bold'
                 }}>{item.name}</Text>
 
-                <TouchableOpacity style={{
+                <TouchableOpacity onPress={() => { navigation.navigate("asd") }} style={{
                     borderRadius: 20,
                     borderWidth: 2,
                     borderColor: COLORS.purple
@@ -124,6 +127,7 @@ const PostScreen = ({ navigation }) => {
             <StatusBar
                 backgroundColor={COLORS.bgColor}
                 barStyle={'dark-content'}
+                translucent={false}
             />
 
             <Header

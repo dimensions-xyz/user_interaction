@@ -3,12 +3,12 @@ import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { LoginScreen } from '../screens'
+import { LoginScreen, SplashScreen } from '../screens'
 import { PostScreen, AlbumsScreen, TodosScreen, ProfileScreen, } from '../screens/tabs'
 import { COLORS } from '../../constants/theme'
 import { getUser } from '../utils/requests/GetDataUtils'
-import Icon from 'react-native-ionicons'
 import { useSelector } from 'react-redux'
+import Icon from 'react-native-ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Stack = createStackNavigator();
@@ -32,6 +32,11 @@ const Router = () => {
             <Stack.Navigator screenOptions={options}>
 
                 <Stack.Screen
+                    component={SplashScreen}
+                    name="SplashScreen"
+                />
+
+                <Stack.Screen
                     component={LoginScreen}
                     name="LoginScreen"
                 />
@@ -43,7 +48,7 @@ const Router = () => {
 
             </Stack.Navigator>
 
-        </NavigationContainer>
+        </NavigationContainer >
     );
 
 }
@@ -51,15 +56,14 @@ const Router = () => {
 const HomeScreen = () => {
 
     const state = useSelector((state) => state);
-    console.log("HS stated from router ->", state.data[state.data.length - 1].userid)
 
     useEffect(() => {
         AsyncStorage.getItem("userid").then(value => {
             if (value == null) {
                 AsyncStorage.setItem("userid", state.data[state.data.length - 1].userid.toString())
             }
-        })
-    });
+        });
+    })
 
     return (
         <Tab.Navigator screenOptions={options.tabBarStyle}>

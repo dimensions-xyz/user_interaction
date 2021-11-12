@@ -19,15 +19,22 @@ const LoginScreen = ({ navigation }) => {
 
     const signIn = async () => {
 
+        // Kullanıcı adı boşsa
         if (username != "") {
             LoginRequest(username).then(result => {
 
+                // İnternet bağlantısı varsa
                 if (result.isConnected) {
+
+                    // Gelen json verisi boşsa
                     if (result.status.length < 1) {
                         setStatus('Lütfen geçerli bir kullanıcı adı giriniz.')
                     } else {
                         dispatch(addUser({userid: result.status[0].id}))
-                        navigation.navigate('HomeScreen')
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'HomeScreen' }],
+                        });
                     }
                 }
                 else {

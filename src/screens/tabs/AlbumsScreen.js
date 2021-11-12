@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, SafeAreaView, StatusBar, FlatList, Image, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, FlatList, Image, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS } from '../../../constants/theme';
@@ -8,15 +8,22 @@ import { wait } from '../../utils/PromiseUtils';
 
 const AlbumsScreen = ({ navigation }) => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([])
+    const [isLoading, setisLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
+
+        setisLoading(true)
         getData()
+
     }, [])
 
     const logOut = () => {
-        navigation.navigate("LoginScreen")
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+        });
     }
 
     const onRefresh = useCallback(() => {
@@ -35,6 +42,7 @@ const AlbumsScreen = ({ navigation }) => {
         getAlbums().then((result) => {
             if (result.isConnected) {
                 setData(result.albums)
+                setisLoading(false)
             } else {
                 alert("İnternet Bağlantınızı Kontrol ediniz!")
             }
@@ -77,16 +85,27 @@ const AlbumsScreen = ({ navigation }) => {
 
     }
 
+    const renderFooter = () => {
+
+        return (
+            isLoading ?
+                <View style={{
+                    marginTop: 10,
+                    alignItems: 'center'
+                }}>
+
+                    <ActivityIndicator size="large" />
+
+                </View> : null
+        );
+
+    }
+
     return (
         <SafeAreaView style={{
             flex: 1,
             backgroundColor: COLORS.bgColor
         }}>
-
-            <StatusBar
-                backgroundColor={COLORS.bgColor}
-                barStyle={'dark-content'}
-            />
 
             <Header
                 title="Albümler"
@@ -106,6 +125,7 @@ const AlbumsScreen = ({ navigation }) => {
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index}
+                ListFooterComponent={renderFooter}
             />
 
         </SafeAreaView>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, SafeAreaView, StatusBar, FlatList, RefreshControl } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS, SIZES } from '../../../constants/theme'
@@ -10,14 +10,21 @@ import CheckBox from '@react-native-community/checkbox';
 const TodosScreen = ({ navigation }) => {
 
     const [data, setData] = useState([]);
+    const [isLoading, setisLoading] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
+
+        setisLoading(true)
         getData()
+
     }, [])
 
     const logOut = () => {
-        navigation.navigate("LoginScreen")
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+        });
     }
 
     const onRefresh = useCallback(() => {
@@ -35,6 +42,7 @@ const TodosScreen = ({ navigation }) => {
         getTodos().then((result) => {
             if (result.isConnected) {
                 setData(result.todos)
+                setisLoading(false)
             } else {
                 alert("İnternet Bağlantınızı Kontrol ediniz!")
             }
@@ -76,16 +84,27 @@ const TodosScreen = ({ navigation }) => {
 
     }
 
+    const renderFooter = () => {
+
+        return (
+            isLoading ?
+                <View style={{
+                    marginTop: 10,
+                    alignItems: 'center'
+                }}>
+
+                    <ActivityIndicator size="large" />
+
+                </View> : null
+        );
+
+    }
+
     return (
         <SafeAreaView style={{
             flex: 1,
             backgroundColor: COLORS.bgColor
         }}>
-
-            <StatusBar
-                backgroundColor={COLORS.bgColor}
-                barStyle={'dark-content'}
-            />
 
             <Header
                 title="Yapılacaklar Listesi"
@@ -105,6 +124,7 @@ const TodosScreen = ({ navigation }) => {
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index}
+                ListFooterComponent={renderFooter}
             />
 
         </SafeAreaView>

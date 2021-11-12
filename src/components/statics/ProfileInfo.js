@@ -16,11 +16,6 @@ const ProfileInfo = () => {
 
         getData()
 
-        // Bellek kullanımının azalması için burda verileri geri sildim eğer sizde veriler gelmezse burdaki set metodlarını kaldırabilirsiniz.
-        setData({})
-        setAddress({})
-        setCompany({})
-
     }, []);
 
     const getData = async () => {

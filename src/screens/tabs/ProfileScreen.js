@@ -4,20 +4,21 @@ import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS } from '../../../constants/theme';
 import { ProfileInfo } from '../../components/statics';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { removeUser } from "../../redux/actions/UserActions"
 
 const ProfileScreen = ({ navigation }) => {
 
     const state = useSelector((state) => state);
-    const dispatch = useDispatch();
 
     console.log("HS state data ->", state.data)
     console.log("HS state last index ->", state.data[state.data.length - 1])
 
     const logOut = () => {
-        dispatch(removeUser(state.data))
-        navigation.navigate("LoginScreen")
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+        });
     }
 
     return (
@@ -25,11 +26,6 @@ const ProfileScreen = ({ navigation }) => {
             flex: 1,
             backgroundColor: COLORS.bgColor
         }}>
-
-            <StatusBar
-                backgroundColor={COLORS.bgColor}
-                barStyle={'dark-content'}
-            />
 
             <Header
                 title="Profil"
