@@ -112,9 +112,7 @@ const TodosScreen = ({ navigation }) => {
                 onPressRightIcon={() => logOut()}
             />
 
-            <FlatList style={{
-                flex: 1,
-            }}
+            <FlatList
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}

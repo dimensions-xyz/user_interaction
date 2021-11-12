@@ -74,6 +74,10 @@ const PostScreen = ({ navigation }) => {
                 }}
                     onPress={() => navigation.navigate("CommentScreen", {
                         // Argüman
+                        currentPost: item.id,
+                        postTitle: item.title,
+                        postBody: item.body,
+                        postBy: item.name
                     })}
                 >
 
@@ -140,9 +144,7 @@ const PostScreen = ({ navigation }) => {
                 onPressRightIcon={() => logOut()}
             />
 
-            <FlatList style={{
-                flex: 1,
-            }}
+            <FlatList
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}

@@ -62,6 +62,7 @@ const AlbumsScreen = ({ navigation }) => {
             }}
                 onPress={() => navigation.navigate("PhotosScreen", {
                     // Argüman
+                    currentAlbum: item.id
                 })}
             >
 
@@ -117,9 +118,7 @@ const AlbumsScreen = ({ navigation }) => {
                 onPressRightIcon={() => logOut()}
             />
 
-            <FlatList style={{
-                flex: 1,
-            }}
+            <FlatList
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}

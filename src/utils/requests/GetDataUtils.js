@@ -5,7 +5,7 @@ export async function getPosts(pageCurrent) {
 
     // Kullanıcı ve postları birbirine indexlerken böyle bir yol izledim.
     // Eğer daha mantıklı bir yolu varsa bana da söylerseniz öğrenmiş olurum :)
-    // (path kısmında userid den kullanıcı adı çekmek mümksünse bana söyler misiniz?)
+    // (posttaki userid den path ile aynı URL'den kullanıcı adı çekmek mümksünse bana söyler misiniz?)
 
     let users = ""
     let post = ""
@@ -57,7 +57,6 @@ export async function getPosts(pageCurrent) {
 export async function getUser(userid) {
 
     let user = ""
-
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
     if (isConnected) {
@@ -149,4 +148,50 @@ export async function getAlbums() {
     }
 
     return { albums, isConnected }
+}
+
+export async function getPhotos(page, albumid) {
+
+    let photos = ""
+    const isConnected = await NetworkUtils.isNetworkAvailable()
+
+    if (isConnected) {
+        // Getting Photos
+        await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=10&_page=${page}&albumId=${albumid}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        }).then((response) => response.text())
+            .then((result) => {
+                photos = JSON.parse(result)
+
+            });
+    }
+
+    return { photos, isConnected }
+}
+
+export async function getComments(postId) {
+
+    let comments = ""
+    const isConnected = await NetworkUtils.isNetworkAvailable()
+
+    if (isConnected) {
+        // Getting Comments
+        await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        }).then((response) => response.text())
+            .then((result) => {
+                comments = JSON.parse(result)
+
+            });
+    }
+
+    return { comments, isConnected }
 }
