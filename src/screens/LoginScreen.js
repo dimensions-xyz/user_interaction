@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, SafeAreaView, StatusBar, ScrollView } from 'react-native';
-import { Header, CustomTextInput, CustomButton } from '../components';
-import { IconPerson } from '../assets/svg';
-import { COLORS, SIZES } from '../../constants/theme';
-import { LoginRequest } from '../utils/requests/LoginUtils';
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react'
+import { View, Text, SafeAreaView, StatusBar, ScrollView } from 'react-native'
+import { Header, CustomTextInput, CustomButton } from '../components'
+import { IconPerson } from '../assets/svg'
+import { COLORS, SIZES } from '../../constants/theme'
+import { LoginRequest } from '../utils/requests/LoginUtils'
+import { useDispatch } from "react-redux"
 import { addUser } from "../redux/actions/UserActions"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LoginScreen = ({ navigation }) => {
 
@@ -13,6 +14,8 @@ const LoginScreen = ({ navigation }) => {
     const [status, setStatus] = useState('');
 
     const dispatch = useDispatch();
+
+    AsyncStorage.setItem("userid", "")
 
     const signIn = async () => {
 

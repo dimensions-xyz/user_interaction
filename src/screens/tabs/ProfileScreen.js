@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native';
 import { IconLogOut } from '../../assets/svg';
 import { Header } from '../../components';
 import { COLORS, FONTS } from '../../../constants/theme';
@@ -13,7 +13,7 @@ const ProfileScreen = ({ navigation }) => {
     const dispatch = useDispatch();
 
     console.log("HS state data ->", state.data)
-    console.log("HS state last index ->", state.data[state.data.length -1])
+    console.log("HS state last index ->", state.data[state.data.length - 1])
 
     const logOut = () => {
         dispatch(removeUser(state.data))

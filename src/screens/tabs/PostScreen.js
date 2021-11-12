@@ -16,19 +16,14 @@ const PostScreen = ({ navigation }) => {
     const [pageCurrent, setpageCurrent] = useState(1)
 
     useEffect(() => {
-        console.log('useeffect');
+
         setisLoading(true);
         getData()
-
-        return () => {
-
-        }
 
     }, [pageCurrent])
 
     const getData = async () => {
         getPosts(pageCurrent).then(result => {
-            console.log('getPost');
             if (result.isConnected) {
                 setData(data.concat(result.post))
                 setisLoading(false)

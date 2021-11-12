@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -9,6 +9,7 @@ import { COLORS } from '../../constants/theme'
 import { getUser } from '../utils/requests/GetDataUtils'
 import Icon from 'react-native-ionicons'
 import { useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,11 +51,14 @@ const Router = () => {
 const HomeScreen = () => {
 
     const state = useSelector((state) => state);
+    console.log("HS stated from router ->", state.data[state.data.length - 1].userid)
 
-    getUser(state.data[state.data.length - 1].userid).then(result => {
-
-        console.log(result.user);
-
+    useEffect(() => {
+        AsyncStorage.getItem("userid").then(value => {
+            if(value == null){
+                AsyncStorage.setItem("userid", state.data[state.data.length - 1].userid.toString())
+            }
+        })
     });
 
     return (

@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, StatusBar } from 'react-native';
 import { COLORS, FONTS } from '../../../constants/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUser } from '../../utils/requests/GetDataUtils';
 
 const ProfileInfo = () => {
+
+    // verilerdeki adres ve şirketin ayrı payloadları olduğu için aynı datasette iken hata veriyor
+    // geçici olacağı için database yerine hook kullandım
+    const [data, setData] = useState([]);
+    const [address, setAddress] = useState([]);
+    const [company, setCompany] = useState([]);
+
+    useEffect(() => {
+
+        getData()
+
+        setData({})
+        setAddress({})
+        setCompany({})
+
+    }, []);
+
+    const getData = async () => {
+        AsyncStorage.getItem("userid").then(value => {
+            getUser(value).then((result) => {
+                setData(result.user[0])
+                setAddress(result.user[0].address)
+                setCompany(result.user[0].company)
+            })
+        });
+    }
+
 
     return (
         <View style={{ height: '90%', justifyContent: 'space-between' }}>
@@ -13,7 +42,7 @@ const ProfileInfo = () => {
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{data.name}</Text>
             </View>
 
             <View>
@@ -22,16 +51,20 @@ const ProfileInfo = () => {
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{data.email}</Text>
             </View>
 
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
-                    Adrress:
+                    Address:
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{address.street + "\n" +
+                    address.suite + "\n" +
+                    address.city + "\n" +
+                    address.zipcode
+                    }</Text>
             </View>
 
             <View>
@@ -40,7 +73,7 @@ const ProfileInfo = () => {
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{data.phone}</Text>
             </View>
 
             <View>
@@ -49,7 +82,7 @@ const ProfileInfo = () => {
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{data.website}</Text>
             </View>
 
             <View>
@@ -58,7 +91,10 @@ const ProfileInfo = () => {
                 </Text>
                 <Text style={{
                     ...FONTS.desc
-                }}>Leanne Graham</Text>
+                }}>{company.name + "\n" +
+                    company.catchPhrase + "\n" +
+                    company.bs
+                    }</Text>
             </View>
 
         </View>
