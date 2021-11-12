@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, SafeAreaView, StatusBar, FlatList, ActivityIndicator } from 'react-native';
 import { Header } from '../../../components';
-import { COLORS, FONTS } from '../../../../constants/theme';
+import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import { useRoute } from '@react-navigation/core';
 import { getComments } from '../../../utils/requests/GetDataUtils';
 import { wait } from '../../../utils/PromiseUtils';
@@ -87,6 +87,7 @@ const CommentScreen = () => {
 
     return (
         <SafeAreaView style={{
+            flex: 1,
             backgroundColor: COLORS.bgColor
         }}>
 
@@ -132,7 +133,9 @@ const CommentScreen = () => {
 
             </View>
 
-            <FlatList
+            <FlatList contentContainerStyle={{
+                backgroundColor: COLORS.bgColor
+            }}
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index}

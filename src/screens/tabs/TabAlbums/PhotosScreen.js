@@ -54,7 +54,10 @@ const PhotosScreen = () => {
         const radius = 20
 
         return (
-            <View style={{ backgroundColor: COLORS.bgColor }}>
+            <View style={{
+                flex: 1,
+                backgroundColor: COLORS.bgColor
+            }}>
 
                 <TouchableOpacity activeOpacity={.5} style={{
                     margin: 5
@@ -123,7 +126,10 @@ const PhotosScreen = () => {
 
             <Header title="Fotoğraflar" />
 
-            <FlatList
+            <FlatList  contentContainerStyle={{
+                backgroundColor: COLORS.bgColor,
+                paddingBottom: SIZES.height * 0.1
+            }}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
