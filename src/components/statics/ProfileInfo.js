@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ProfileInfo = () => {
 
     // Verilerdeki adres ve şirketin ayrı payloadları olduğu için aynı datasette iken hata veriyor.
-    // Büyük bir proje olmadığı için herhangi bir database yerine hook kullandım. Umarım iyi yapmışımdır :)
+    // Büyük bir proje olmadığı için herhangi bir database kullanmak yerine verileri AsyncStore dan alıp state de tutuyorum.
     const [data, setData] = useState([]);
     const [address, setAddress] = useState([]);
     const [company, setCompany] = useState([]);
