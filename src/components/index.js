@@ -1,9 +1,11 @@
 import Header from './Header';
 import CustomTextInput from './CustomTextInput';
 import CustomButton from './CustomButton';
+import CustomModal from './CustomModal';
 
-export{
+export {
     Header,
     CustomTextInput,
     CustomButton,
+    CustomModal
 }

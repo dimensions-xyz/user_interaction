@@ -13,6 +13,7 @@ const ProfileScreen = ({ navigation }) => {
     console.log("HS state data ->", state.data)
     console.log("HS state last index ->", state.data[state.data.length - 1])
 
+    // Navigasyonun önbelleğini silip çıkış yapar
     const logOut = () => {
         navigation.reset({
             index: 0,
@@ -38,6 +39,7 @@ const ProfileScreen = ({ navigation }) => {
                 flexDirection: 'row'
             }}>
 
+                {/* Profil ekranının solundaki mor çizgi */}
                 <View style={{
                     height: '90%',
                     width: 5,
@@ -46,6 +48,7 @@ const ProfileScreen = ({ navigation }) => {
                     backgroundColor: COLORS.purple,
                 }} />
 
+                {/* Kullanıcı Bilgilerinin bulunduğu statik komponent */}
                 <ProfileInfo />
 
             </View>

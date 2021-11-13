@@ -22,7 +22,7 @@ const SplashScreen = ({ navigation }) => {
             }
 
         });
-    }, 2500)
+    }, 2500) // Splash ekranının kalma süresi
 
     return (
         <View style={{
@@ -36,6 +36,7 @@ const SplashScreen = ({ navigation }) => {
                 translucent
             />
 
+            {/* Splash logo ve yazısı */}
             <View style={{ alignItems: 'center' }}>
 
                 <Image source={require("../images/img_person.png")} />

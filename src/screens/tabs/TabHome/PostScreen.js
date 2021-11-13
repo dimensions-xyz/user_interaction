@@ -20,6 +20,7 @@ const PostScreen = ({ navigation }) => {
 
     }, [pageCurrent])
 
+    // Navigasyonun önbelleğini silip çıkış yapar
     const logOut = () => {
         navigation.reset({
             index: 0,
@@ -27,6 +28,7 @@ const PostScreen = ({ navigation }) => {
         });
     }
 
+    // Flatlist refresh fonksiyonu
     const onRefresh = useCallback(() => {
 
         setRefreshing(true)
@@ -38,6 +40,7 @@ const PostScreen = ({ navigation }) => {
 
     })
 
+    // Gönderileri getirir
     const getData = async () => {
 
         getPosts(pageCurrent).then(result => {
@@ -52,6 +55,7 @@ const PostScreen = ({ navigation }) => {
 
     }
 
+    // Render Item
     const renderItem = ({ item }) => {
 
         return (
@@ -60,6 +64,7 @@ const PostScreen = ({ navigation }) => {
                 marginVertical: 5,
             }}>
 
+                {/* Gönderinin sahibi */}
                 <Text style={{
                     marginLeft: 3,
                     color: 'black',
@@ -67,13 +72,14 @@ const PostScreen = ({ navigation }) => {
                     fontFamily: 'Roboto-Bold'
                 }}>{item.name}</Text>
 
+                {/* Gönderi */}
                 <TouchableOpacity style={{
                     borderRadius: 20,
                     borderWidth: 2,
                     borderColor: COLORS.purple
                 }}
                     onPress={() => navigation.navigate("CommentScreen", {
-                        // Argüman
+                        // Yorumlar ekranına gönderilecek olan argümanlar
                         currentPost: item.id,
                         postTitle: item.title,
                         postBody: item.body,
@@ -85,11 +91,13 @@ const PostScreen = ({ navigation }) => {
                         padding: 10
                     }}>
 
+                        {/* Gönderi başlığı */}
                         <Text style={{
                             ...FONTS.headerTitle,
                             color: COLORS.purple
                         }}>{item.title}</Text>
 
+                        {/* Gönderi açıklaması */}
                         <Text style={{
                             ...FONTS.body,
                             color: COLORS.gray
@@ -104,6 +112,7 @@ const PostScreen = ({ navigation }) => {
 
     }
 
+    // Renderlanma bilgisini alıp ona göre dönme animasyonunu gösterir
     const renderFooter = () => {
 
         return (
@@ -120,6 +129,7 @@ const PostScreen = ({ navigation }) => {
 
     }
 
+    // Fonksiyon çalıştırıldığında veriler 10. sayfaya kadar yüklenir
     const handleLoadMore = () => {
         console.log(pageCurrent)
         pageCurrent < 10 ? setpageCurrent(pageCurrent + 1) : 0

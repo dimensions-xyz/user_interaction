@@ -1,5 +1,5 @@
 import ProfileInfo from './ProfileInfo';
 
-export{
+export {
     ProfileInfo
 }

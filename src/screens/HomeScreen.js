@@ -25,6 +25,7 @@ const options = {
     }
 }
 
+// Gönderi ve yorum ekranlarını tutan stack navigator
 const TabHome = () => {
 
     return (
@@ -45,6 +46,7 @@ const TabHome = () => {
 
 }
 
+// Albüm ve fotoğraf ekranlarını tutan stack navigator
 const TabPhotos = () => {
 
     return (
@@ -70,11 +72,14 @@ const HomeScreen = () => {
     const state = useSelector((state) => state);
 
     useEffect(() => {
+
+        // Daha önce giriş yapılıp yapılmadığını kontrol eder
         AsyncStorage.getItem("userid").then(value => {
             if (value == null) {
                 AsyncStorage.setItem("userid", state.data[state.data.length - 1].userid.toString())
             }
         });
+
     })
 
     return (

@@ -30,6 +30,7 @@ const Router = () => {
                     name="LoginScreen"
                 />
 
+                {/* HomeScreen komponenti tab screen komponentlerini içerir */}
                 <Stack.Screen
                     component={HomeScreen}
                     name="HomeScreen"

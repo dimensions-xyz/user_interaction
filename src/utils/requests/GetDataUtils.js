@@ -3,10 +3,6 @@ import NetworkUtils from '../NetworkUtils';
 
 export async function getPosts(pageCurrent) {
 
-    // Kullanıcı ve postları birbirine indexlerken böyle bir yol izledim.
-    // Eğer daha mantıklı bir yolu varsa bana da söylerseniz öğrenmiş olurum :)
-    // (posttaki userid den path ile aynı URL'den kullanıcı adı çekmek mümksünse bana söyler misiniz?)
-
     let users = ""
     let post = ""
 
@@ -14,7 +10,7 @@ export async function getPosts(pageCurrent) {
 
     if (isConnected) {
 
-        // Getting Persons
+        // Kullanıcı bilgilerini getirir
         await fetch('https://jsonplaceholder.typicode.com/users', {
             method: 'GET',
             headers: {
@@ -26,8 +22,7 @@ export async function getPosts(pageCurrent) {
                 users = JSON.parse(result)
             })
 
-
-        // Getting Posts
+        // Post bilgilerini sayfalayarak getirir.
         await fetch('https://jsonplaceholder.typicode.com/posts?_limit=10&_page=' + pageCurrent, {
             method: 'GET',
             headers: {
@@ -46,6 +41,9 @@ export async function getPosts(pageCurrent) {
                         }
                     }
                 }
+                // Kullanıcı ve postları birbirine indexlerken böyle bir yol izledim.
+                // Eğer daha mantıklı bir yolu varsa bana da söylerseniz öğrenmiş olurum :)
+                // (posttaki userid den path ile aynı URL'den kullanıcı adı çekmek mümksünse bana söyler misiniz?)
 
             });
 
@@ -61,7 +59,7 @@ export async function getUser(userid) {
 
     if (isConnected) {
 
-        // Getting Current User Infos
+        // Kullanıcı verisini getirir
         await fetch(`https://jsonplaceholder.typicode.com/users?id=${userid}`, {
             method: 'GET',
             headers: {
@@ -91,7 +89,8 @@ export async function getTodos() {
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
     if (isConnected) {
-        // Getting Todo List
+
+        // Kullanıcının yapılacaklar listesini getirir
         await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userid}`, {
             method: 'GET',
             headers: {
@@ -109,6 +108,7 @@ export async function getTodos() {
                 }
 
             });
+
     }
 
     return { todos, isConnected, queue }
@@ -123,11 +123,12 @@ export async function getAlbums() {
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
     if (isConnected) {
+
         await AsyncStorage.getItem("userid").then(value => {
             userid = value
         });
 
-        // Getting Albums
+        // Kullanıcı albümlerini getirir
         await fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userid}`, {
             method: 'GET',
             headers: {
@@ -156,7 +157,8 @@ export async function getPhotos(page, albumid) {
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
     if (isConnected) {
-        // Getting Photos
+
+        // Geçerli albümün fotoğraflarını sayfalayarak getirir.
         await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=10&_page=${page}&albumId=${albumid}`, {
             method: 'GET',
             headers: {
@@ -179,7 +181,8 @@ export async function getComments(postId) {
     const isConnected = await NetworkUtils.isNetworkAvailable()
 
     if (isConnected) {
-        // Getting Comments
+
+        // Geçerli postun yorumlarını getirir
         await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`, {
             method: 'GET',
             headers: {

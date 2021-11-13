@@ -13,6 +13,7 @@ const Header = ({ leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon, title,
             backgroundColor: COLORS.bgColor
         }}>
 
+            {/* Header sol buton flexi */}
             <View style={{ flex: 1 }}>
 
                 <TouchableOpacity style={{
@@ -28,6 +29,7 @@ const Header = ({ leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon, title,
 
             </View>
 
+            {/* Header Başlığı */}
             <Text style={[{
                 paddingVertical: 16,
                 ...FONTS.headerTitle,
@@ -36,6 +38,7 @@ const Header = ({ leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon, title,
                 {title}
             </Text>
 
+            {/* Header sağ buton flexi */}
             <View style={{
                 flex: 1,
                 alignItems: 'flex-end'

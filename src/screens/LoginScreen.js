@@ -17,6 +17,7 @@ const LoginScreen = ({ navigation }) => {
 
     AsyncStorage.setItem("userid", "")
 
+    // Giriş butonuna tıklanınca çalıştırılıcak olan asenktron fonksiyon
     const signIn = async () => {
 
         // Kullanıcı adı boşsa
@@ -30,12 +31,13 @@ const LoginScreen = ({ navigation }) => {
                     if (result.status.length < 1) {
                         setStatus('Lütfen geçerli bir kullanıcı adı giriniz.')
                     } else {
-                        dispatch(addUser({userid: result.status[0].id}))
+                        dispatch(addUser({ userid: result.status[0].id }))
                         navigation.reset({
                             index: 0,
                             routes: [{ name: 'HomeScreen' }],
                         });
                     }
+
                 }
                 else {
                     setStatus('İnternet bağlantınızı kontrol ediniz.')
@@ -62,6 +64,7 @@ const LoginScreen = ({ navigation }) => {
 
             <Header title="Giriş Yapın" />
 
+            {/* Ekranda boş yerlere tıklanınca klavyenin kapanması için scrollview kullandım */}
             <ScrollView contentContainerStyle={{
                 flex: 1,
                 justifyContent: 'center',
@@ -74,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
                     alignItems: 'center',
                 }}>
 
-                    {/* Username */}
+                    {/* Kullanıcı adı giriş inputu */}
                     <CustomTextInput
                         icon={(<IconPerson color={COLORS.fadePurple} />)}
                         maxLength={24}
@@ -85,6 +88,7 @@ const LoginScreen = ({ navigation }) => {
                         }}
                     />
 
+                    {/* Giriş durumu yazısı */}
                     <Text style={{
                         fontSize: 13,
                         marginTop: 20,
@@ -92,6 +96,7 @@ const LoginScreen = ({ navigation }) => {
                         fontFamily: 'Roboto-Regular'
                     }}>{status}</Text>
 
+                    {/* Giriş butonu */}
                     <CustomButton style={{
                         marginTop: 80
                     }}

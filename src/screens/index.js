@@ -2,7 +2,7 @@ import LoginScreen from './LoginScreen';
 import SplashScreen from './SplashScreen';
 import HomeScreen from './HomeScreen';
 
-export{
+export {
     LoginScreen,
     SplashScreen,
     HomeScreen

@@ -5,8 +5,9 @@ import { COLORS, FONTS, SIZES } from '../../../../constants/theme';
 import { useRoute } from '@react-navigation/core';
 import { getComments } from '../../../utils/requests/GetDataUtils';
 import { wait } from '../../../utils/PromiseUtils';
+import Icon from 'react-native-ionicons';
 
-const CommentScreen = () => {
+const CommentScreen = ({navigation}) => {
 
     const [data, setData] = useState([]);
     const [isLoading, setisLoading] = useState(false)
@@ -96,7 +97,11 @@ const CommentScreen = () => {
                 barStyle={'dark-content'}
             />
 
-            <Header title="Yorumlar" />
+            <Header
+                title="Yorumlar"
+                leftIcon={(<Icon name="arrow-back" color={COLORS.purple} />)}
+                onPressLeftIcon={() => navigation.goBack()}
+            />
 
             <View style={{
                 margin: 5,

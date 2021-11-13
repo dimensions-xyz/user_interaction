@@ -1,5 +1,6 @@
 import NetInfo from "@react-native-community/netinfo";
 
+// Boolean değeri internet bağlantısının olup olmamasına göre atanacaktır.
 export default class NetworkUtils {
 
     static async isNetworkAvailable() {

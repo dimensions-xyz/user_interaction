@@ -19,6 +19,7 @@ const AlbumsScreen = ({ navigation }) => {
 
     }, [])
 
+    // Navigasyonun önbelleğini silip çıkış yapar
     const logOut = () => {
         navigation.reset({
             index: 0,
@@ -26,6 +27,7 @@ const AlbumsScreen = ({ navigation }) => {
         });
     }
 
+    // Flatlist refresh fonksiyonu
     const onRefresh = useCallback(() => {
 
         setRefreshing(true)
@@ -37,6 +39,7 @@ const AlbumsScreen = ({ navigation }) => {
 
     })
 
+    // Kullanıcının albümlerini getirir
     const getData = async () => {
 
         getAlbums().then((result) => {
@@ -50,6 +53,7 @@ const AlbumsScreen = ({ navigation }) => {
 
     }
 
+    // Render Item
     const renderItem = ({ item }) => {
 
         return (
@@ -61,7 +65,7 @@ const AlbumsScreen = ({ navigation }) => {
                 borderColor: COLORS.purple,
             }}
                 onPress={() => navigation.navigate("PhotosScreen", {
-                    // Argüman
+                    // Fotoğraflar için id argümanını PhotoScreen komponentine iletir
                     currentAlbum: item.id
                 })}
             >
@@ -72,11 +76,13 @@ const AlbumsScreen = ({ navigation }) => {
                     alignItems: 'center',
                 }}>
 
+                    {/* Albüm Sırası */}
                     <Text style={{
                         ...FONTS.title,
                         color: COLORS.purple
                     }}>{item.queue + ". albüm"}</Text>
 
+                    {/* Albüm başlığı */}
                     <Text style={{
                         ...FONTS.desc,
                         color: COLORS.purple,
@@ -90,6 +96,7 @@ const AlbumsScreen = ({ navigation }) => {
 
     }
 
+    // Renderlanma bilgisini alıp ona göre dönme animasyonunu gösterir
     const renderFooter = () => {
 
         return (

@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileInfo = () => {
 
-    // verilerdeki adres ve şirketin ayrı payloadları olduğu için aynı datasette iken hata veriyor
-    // büyük bir proje olmadığı için database yerine hook kullandım. Umarım iyi yapmışımdır :)
+    // Verilerdeki adres ve şirketin ayrı payloadları olduğu için aynı datasette iken hata veriyor.
+    // Büyük bir proje olmadığı için herhangi bir database yerine hook kullandım. Umarım iyi yapmışımdır :)
     const [data, setData] = useState([]);
     const [address, setAddress] = useState([]);
     const [company, setCompany] = useState([]);
@@ -18,6 +18,7 @@ const ProfileInfo = () => {
 
     }, []);
 
+    // Kullanıcı verilerini getirir.
     const getData = async () => {
         AsyncStorage.getItem("userid").then(value => {
 
@@ -40,6 +41,7 @@ const ProfileInfo = () => {
             justifyContent: 'space-between',
         }}>
 
+            {/* Kullanıcı İsmi */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Name:
@@ -50,6 +52,7 @@ const ProfileInfo = () => {
                 }}>{data.name}</Text>
             </View>
 
+            {/* Kullanıcı E-maili */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     E-mail:
@@ -60,6 +63,7 @@ const ProfileInfo = () => {
                 }}>{data.email}</Text>
             </View>
 
+            {/* Kullanıcı Adres Bilgileri */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Address:
@@ -74,6 +78,7 @@ const ProfileInfo = () => {
                     }</Text>
             </View>
 
+            {/* Kullanıcı Numarası */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Phone:
@@ -84,6 +89,7 @@ const ProfileInfo = () => {
                 }}>{data.phone}</Text>
             </View>
 
+            {/* Kullanıcı Websitesi */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Website:
@@ -94,6 +100,7 @@ const ProfileInfo = () => {
                 }}>{data.website}</Text>
             </View>
 
+            {/* Kullanıcı Şirket Bilgileri */}
             <View>
                 <Text style={{ ...FONTS.bigTitle, color: COLORS.purple }}>
                     Company:

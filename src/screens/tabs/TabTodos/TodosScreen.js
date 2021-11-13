@@ -20,6 +20,7 @@ const TodosScreen = ({ navigation }) => {
 
     }, [])
 
+    // Navigasyonun önbelleğini silip çıkış yapar
     const logOut = () => {
         navigation.reset({
             index: 0,
@@ -27,6 +28,7 @@ const TodosScreen = ({ navigation }) => {
         });
     }
 
+    // Flatlist refresh fonksiyonu
     const onRefresh = useCallback(() => {
 
         setRefreshing(true)
@@ -38,6 +40,7 @@ const TodosScreen = ({ navigation }) => {
 
     })
 
+    // Kullanıcının yapılacaklar listesini getirir
     const getData = async () => {
         getTodos().then((result) => {
             if (result.isConnected) {
@@ -49,6 +52,7 @@ const TodosScreen = ({ navigation }) => {
         });
     }
 
+    // Render Item
     const renderItem = ({ item }) => {
 
         return (
@@ -64,6 +68,7 @@ const TodosScreen = ({ navigation }) => {
                     alignItems: 'center',
                 }}>
 
+                    {/* Yapılacak yazısı */}
                     <Text style={{
                         width: '88%',
                         padding: 15,
@@ -72,6 +77,7 @@ const TodosScreen = ({ navigation }) => {
                     }}>{item.queue + " - " +
                         item.title}</Text>
 
+                    {/* Yapılacak tik kutusu */}
                     <CheckBox
                         disabled={false}
                         value={item.completed}
@@ -84,6 +90,7 @@ const TodosScreen = ({ navigation }) => {
 
     }
 
+    // Renderlanma bilgisini alıp ona göre dönme animasyonunu gösterir
     const renderFooter = () => {
 
         return (
