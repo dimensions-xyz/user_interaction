@@ -41,9 +41,6 @@ export async function getPosts(pageCurrent) {
                         }
                     }
                 }
-                // Kullanıcı ve postları birbirine indexlerken böyle bir yol izledim.
-                // Eğer daha mantıklı bir yolu varsa bana da söylerseniz öğrenmiş olurum :)
-                // (posttaki userid den path ile aynı URL'den kullanıcı adı çekmek mümksünse bana söyler misiniz?)
 
             });
 
